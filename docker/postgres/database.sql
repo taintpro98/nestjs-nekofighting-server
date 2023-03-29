@@ -1,0 +1,1 @@
+create database nekofighting_database
