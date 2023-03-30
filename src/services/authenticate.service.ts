@@ -30,7 +30,7 @@ export class AuthenticateService {
       access_token: await this.jwtService.signAsync(
         {
           id: user.id,
-          username: user.username
+          username: user.username,
         },
         {
           expiresIn: ms(
