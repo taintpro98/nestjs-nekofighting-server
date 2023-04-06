@@ -23,10 +23,10 @@
     "paths": {
       "@constants": ["constants/index"],
       "@configs/*": ["configs/*"],
+      "@guards": ["guards/index"],
       "@dtos": ["dtos/index"],
       "@validators": ["validators/index"],
       "@controllers": ["controllers/index"],
-      "@services/*": ["services/*"],
       "@services": ["services/index"],
       "@repositories/*": ["repositories/*"],
       "@repositories": ["repositories/index"],
@@ -34,6 +34,7 @@
       "@models": ["models/index"],
       "@utils": ["utils/index"],
       "@modules/*": ["modules/*"],
+      "@passports": ["passports/index"]
     }
   },
   "include": ["src"]

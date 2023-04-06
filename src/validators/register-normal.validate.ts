@@ -1,30 +1,17 @@
-import { REPOSITORIES } from '@constants';
-import { RegisterNormalDto } from '@dtos';
-import {
-  ArgumentMetadata,
-  BadRequestException,
-  Inject,
-  Injectable,
-  PipeTransform,
-} from '@nestjs/common';
-import { IUserRepository } from '@repositories/interfaces';
+import { LoginDefaultDto } from '@dtos';
+import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
 @Injectable()
-export class RegisterNormalValidationPipe
-  implements PipeTransform<RegisterNormalDto>
+export class LoginDefaultValidationPipe
+  implements PipeTransform<LoginDefaultDto>
 {
-  constructor(
-    @Inject(REPOSITORIES.USER_REPOSITORY)
-    private readonly userRepository: IUserRepository,
-  ) {}
+  private validateUsername(username: string): boolean {
+    return true;
+  }
 
-  async transform(value: RegisterNormalDto, metadata: ArgumentMetadata) {
+  async transform(value: LoginDefaultDto, metadata: ArgumentMetadata) {
     const { username } = value;
-    const user = await this.userRepository
-      .query()
-      .where('username', username)
-      .first();
-    if (user) throw new BadRequestException(`Username ${username} existed`);
+    this.validateUsername(username);
     return value;
   }
 }

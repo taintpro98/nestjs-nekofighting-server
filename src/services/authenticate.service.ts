@@ -1,8 +1,7 @@
 import { REPOSITORIES } from '@constants';
-import { RegisterNormalDto } from '@dtos';
+import { LoginDefaultDto } from '@dtos';
 import { Inject, Injectable } from '@nestjs/common';
 import { IUserRepository } from '@repositories/interfaces';
-import { UserTransformer } from '@transformers';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import ms from 'ms';
@@ -13,19 +12,22 @@ export class AuthenticateService {
     @Inject(REPOSITORIES.USER_REPOSITORY)
     private readonly userRepository: IUserRepository,
 
-    @Inject(UserTransformer)
-    private readonly userTransformer: UserTransformer,
-
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
   ) {}
 
-  async registerNormal(data: RegisterNormalDto) {
-    let user = await this.userRepository.create({
-      username: data.username,
-      password: data.password,
-    });
-    user = await this.userRepository.with(user, '');
+  async loginDefault(data: LoginDefaultDto) {
+    const { username, password } = data;
+    let user = await this.userRepository
+      .query()
+      .where('username', username)
+      .first();
+    if (!user) {
+      user = await this.userRepository.create({
+        username,
+        password,
+      });
+    }
     return {
       access_token: await this.jwtService.signAsync(
         {

@@ -1,18 +1,25 @@
 import { configDb } from '@configs/database';
 import { REPOSITORIES } from '@constants';
-import { AppController, AuthenticateController } from '@controllers';
+import {
+  AccountController,
+  AppController,
+  AuthenticateController,
+} from '@controllers';
 import { ObjectionModule } from '@modules/objection';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AuthenticateService } from '@services';
+import { AuthenticateService, UserService } from '@services';
 import { UserTransformer } from '@transformers';
 import { UserRepository } from '@repositories';
 import { configAuth } from '@configs/auth';
 import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from '@passports';
+import { ConfigAppService } from '@configs/app-configs';
 
-const controllers = [AppController, AuthenticateController];
+const controllers = [AppController, AuthenticateController, AccountController];
 
-const services = [AuthenticateService];
+const services = [AuthenticateService, UserService];
 
 const repositories = [
   {
@@ -25,6 +32,7 @@ const transformers = [UserTransformer];
 
 @Module({
   imports: [
+    PassportModule,
     ConfigModule.forRoot({
       isGlobal: true,
       expandVariables: true,
@@ -44,6 +52,12 @@ const transformers = [UserTransformer];
     }),
   ],
   controllers,
-  providers: [...services, ...repositories, ...transformers],
+  providers: [
+    ConfigAppService,
+    JwtStrategy,
+    ...services,
+    ...repositories,
+    ...transformers,
+  ],
 })
 export class AppModule {}

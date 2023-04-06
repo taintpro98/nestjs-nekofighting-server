@@ -1,19 +1,17 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthenticateService } from '@services/authenticate.service';
-import { RegisterNormalDto } from '@dtos';
-import { RegisterNormalValidationPipe } from '@validators';
+import { AuthenticateService } from '@services';
+import { LoginDefaultDto } from '@dtos';
+import { LoginDefaultValidationPipe } from '@validators';
 
 @ApiTags('Authenticate')
 @Controller('')
 export class AuthenticateController {
   constructor(private readonly authenticateService: AuthenticateService) {}
 
-  @Post('/register/normal')
-  async registerNormal(
-    @Body(RegisterNormalValidationPipe) data: RegisterNormalDto,
-  ) {
-    const response = await this.authenticateService.registerNormal(data);
+  @Post('/login/default')
+  async loginDefault(@Body(LoginDefaultValidationPipe) data: LoginDefaultDto) {
+    const response = await this.authenticateService.loginDefault(data);
     return { data: response };
   }
 }
