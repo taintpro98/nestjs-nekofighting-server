@@ -1,3 +1,5 @@
+import { parse } from 'url';
+
 export const delay = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
@@ -20,3 +22,22 @@ export const calculateTimes = (day?: Date) => {
 
 export const convertISOString2Seconds = (isoTime: string | Date): number =>
   Math.floor(new Date(isoTime).getTime() / 1000);
+
+  
+// param utils
+
+function encodeQueryData(data: any) {
+  const ret = [];
+  for (const d in data)
+    ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+  return ret.join('&');
+}
+
+export const getQueryParams = (url: string) => {
+  return parse(url, true).query;
+};
+
+export const getPathNameUrl = (url: string) => parse(url).pathname;
+
+export const buildUrl = (redirect_uri: string, data: any) =>
+  redirect_uri + '?' + encodeQueryData(data);

@@ -11,7 +11,7 @@ export class UserService {
 
     @Inject(UserTransformer)
     private readonly userTransformer: UserTransformer,
-  ) { }
+  ) {}
 
   async getUserProfile(userId: string) {
     let user = await this.userRepository.findById(userId);

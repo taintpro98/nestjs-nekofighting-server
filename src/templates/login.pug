@@ -1,0 +1,120 @@
+extends layout
+block content
+  div(class=['container-fluid', 'login'])
+    div(class=['row', 'login-row'])
+      div(class=['col-12', 'col-lg-5'])
+        .bg-signin
+          img(
+            src='https://cdn-tmp.a3-dev.com/images/accel3-white.svg',
+            width='217px',
+            class=['px-5, py-4'],
+            alt=''
+          )
+      div(class=['col-12', 'col-lg-7'])
+        div(class=['pt-4', 'd-none', 'd-lg-block'])
+          div(
+            class=['d-flex', 'justify-content-end', 'align-items-center', 'text-white', 'text-base']
+          ) Not a member?
+            a(class=['url-signup', 'ml-1'], href=`${register_url}`) Sign up now
+        div(class=['d-flex', 'login-form-content'])
+          .form
+            h5(class=['text-white', 'text-login', 'mb-4']) SIGN IN TO ACCEL3
+            a.text-decoration(href=`${google_redirect_url}`) 
+              |
+              |
+              |
+              |
+              |
+              |
+              |
+              div(class=['google-btn', 'mb-4'])
+                .google-icon-wrapper
+                  |
+                  img(
+                    src='https://cdn-tmp.a3-dev.com/images/google.svg',
+                    width='28px',
+                    alt=''
+                  )
+                .btn-text
+                  |
+                  span(class=['text-base', 'text-white']) SIGN IN WITH GOOGLE
+            div(class=['row', 'mb-3'])
+              .col
+                |
+                hr
+              div(class=['col-auto', 'text-base', 'text-white']) OR
+              .col
+                hr
+            form#login-form(method='POST', url='/login')
+              #error
+                if error
+                  .global_error #{ error }
+              input#_csrf(type='hidden', name='_csrf', value=`${token}`)
+              div(class=['d-flex', 'flex-column', 'input'])
+                label(
+                  class=['text-white', 'text-base', 'text-uppercase'],
+                  for='email'
+                ) E-MAIL
+                input#email(
+                  name='username',
+                  autofocus,
+                  value=`${username || ""}`,
+                  autocomplete='email'
+                )
+                span.error_email
+              div(class=['d-flex', 'flex-column', 'input'])
+                |
+                div(class=['d-flex', 'justify-content-between'])
+                  |
+                  label(class=['text-white', 'text-base', 'text-uppercase']) Password
+                  a(
+                    class=['text-white', 'text-base', 'url-signup'],
+                    href='/forgot-password'
+                  ) Forgot password?
+                .position-relative 
+                  |
+                  |
+                  |
+                  |
+                  |
+                  |
+                  |
+                  |
+                  input#password.w-100(
+                    name='password',
+                    type='password',
+                    autocomplete='password'
+                  )
+                  #position-eye(class=['position-absolute', 'position-eye']) 
+                    |
+                    |
+                    |
+                    |
+                    |
+                    |
+                    |
+                    |
+                    img.close-eye(
+                      src='https://cdn-tmp.a3-dev.com/images/close-eye.png',
+                      alt=''
+                    )
+                    img.open-eye(
+                      src='https://cdn-tmp.a3-dev.com/images/open-eye.png',
+                      alt='',
+                      style='display: none'
+                    )
+                span.error_password
+              button.btn(type='submit') SIGN IN
+              div(class=['d-flex', 'justify-content-center'])
+                div(class=['lds-ring', 'mb-4'])
+                  div
+                  div
+                  div
+                  div
+              div(class=['justify-content-center', 'd-flex', 'd-lg-none'])
+                div(
+                  class=['d-flex', 'justify-content-end', 'align-items-center', 'text-white', 'text-base']
+                ) Not a member?
+                  |
+                  a(class=['url-signup', 'ml-1'], href=`${register_url}`) Sign up now
+  script(src='../public/js/login.js')

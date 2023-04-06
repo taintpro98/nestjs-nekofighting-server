@@ -34,7 +34,8 @@
       "@models": ["models/index"],
       "@utils": ["utils/index"],
       "@modules/*": ["modules/*"],
-      "@passports": ["passports/index"]
+      "@passports": ["passports/index"],
+      "@exceptions": ["exceptions/index"]
     }
   },
   "include": ["src"]
