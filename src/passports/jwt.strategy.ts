@@ -23,7 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: any) {
     const user = await this.userRepository.findById(payload.id);
     if (!user) throw new BadRequestException('User not existed');
-    if (user?.accel3_id && user.accel3_id !== payload.accel3_id) {
+    if (user?.accel3_id && user.accel3_id !== payload?.accel3_id) {
       throw new BadRequestException(`User has to login with Accel3`);
     }
     return {
