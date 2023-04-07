@@ -6,6 +6,7 @@ import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import morgan from 'morgan';
 import { ConfigAppService } from '@configs/app-configs';
 import { checkDatabaseConnection } from '@configs/database';
+import { join } from 'path';
 
 const DEFAULT_API_VERSION = '1';
 
@@ -28,6 +29,10 @@ async function bootstrap() {
   app.use(morgan('tiny'));
   const port = new ConfigAppService().get('appPort');
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
+
+  app.useStaticAssets(join(__dirname, '.', 'public'));
+  app.setBaseViewsDir(join(__dirname, '.', 'views'));
+  app.setViewEngine('pub');
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);

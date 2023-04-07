@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Post, Request, Response, UseFilters, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Header, HttpStatus, Post, Render, Request, Response, UseFilters, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthenticateService } from '@services';
 import { LoginDefaultDto } from '@dtos';
@@ -37,5 +37,19 @@ export class AuthenticateController {
     const queryParams = getQueryParams(referer);
     console.log("queryParams", queryParams)
     return response.redirect(HttpStatus.FOUND, queryParams.continue_url ?? '/');
+  }
+
+  @Get('/login')
+  @Header('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate')
+  @Header('Pragma', 'no-cache')
+  @Render('login.pug')
+  async loginForm(
+    @Request() request: any,
+    @Response() response: any
+  ){
+    return {
+      accel3_redirect_url: 'googleRedirectUrl',
+      error: 'error_message',
+    }
   }
 }

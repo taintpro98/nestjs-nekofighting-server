@@ -8,6 +8,7 @@ class UserModel extends BaseModel {
   id: string;
   username: string;
   password: string;
+  accel3_id?: string;
 
   static jsonSchema = {
     type: 'object',
@@ -15,6 +16,7 @@ class UserModel extends BaseModel {
       id: { type: 'string' },
       username: { type: 'string' },
       password: { type: 'string' },
+      accel3_id: { type: 'string', nullable: true }
     },
   };
 }
