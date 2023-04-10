@@ -29,6 +29,8 @@ services:
       DB_PORT: 5432
       VERIFIED_MESSAGE: ${VERIFIED_MESSAGE}
       TOKEN_SECRET_KEY: ${TOKEN_SECRET_KEY}
+      OAUTH_AUTHORIZATION_URL: ${OAUTH_AUTHORIZATION_URL}
+      CLIENT_ID: ${CLIENT_ID}
   
   database:
     container_name: postgres-nekofighting-database

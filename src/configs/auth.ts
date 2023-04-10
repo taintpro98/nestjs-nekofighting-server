@@ -8,5 +8,7 @@ export const configAuth = registerAs('auth', () => ({
   auth: {
     refresh_token_lifetime: '14 days',
     access_token_lifetime: '7 days',
-  },
+    oauth_authorization_url: process.env.OAUTH_AUTHORIZATION_URL,
+    client_id: process.env.CLIENT_ID
+  }
 }));

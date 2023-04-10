@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class LoginDefaultDto {
   @ApiProperty({
@@ -17,4 +17,10 @@ export class LoginDefaultDto {
   @IsNotEmpty()
   @IsString()
   password: string;
+}
+
+export class Accel3LoginCallbackQueryDto {
+  @IsNotEmpty()
+  @IsUUID(4)
+  accel3_id: string;
 }
